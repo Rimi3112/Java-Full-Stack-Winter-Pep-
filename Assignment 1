@@ -1,0 +1,243 @@
+// Task 1
+/*
+class BankAccount {
+
+    private String accountNumber;
+    private String accountHolderName;
+    private double balance;
+
+    BankAccount(String accountNumber, String accountHolderName) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = 0.0;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount");
+        }
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Invalid withdrawal or insufficient balance");
+        }
+    }
+
+    void displayAccountDetails() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder: " + accountHolderName);
+        System.out.println("Balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+
+        BankAccount account = new BankAccount("SB101", "Rimi");
+
+        account.deposit(1000);
+        account.withdraw(300);
+
+        account.displayAccountDetails();
+    }
+}
+
+/*
+
+//Task 2
+
+/*
+class BankAccount {
+
+    private String accountNumber;
+    private String accountHolderName;
+    protected double balance;
+
+    BankAccount(String accountNumber, String accountHolderName) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = 0.0;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    String getAccountNumber() {
+        return accountNumber;
+    }
+
+    String getAccountDetails() {
+        return "Account #" + accountNumber + ", Balance: " + balance;
+    }
+}
+
+class SavingsAccount extends BankAccount {
+
+    private double interestRate;
+
+    SavingsAccount(String accNo, String name, double interestRate) {
+        super(accNo, name);
+        this.interestRate = interestRate;
+    }
+
+    void applyInterest() {
+        balance += balance * interestRate;
+    }
+
+    @Override
+    String getAccountDetails() {
+        return "Savings Account #" + getAccountNumber()
+                + ", Balance: " + balance
+                + ", Rate: " + (interestRate * 100) + "%";
+    }
+}
+
+class CheckingAccount extends BankAccount {
+
+    private double overdraftLimit;
+
+    CheckingAccount(String accNo, String name, double overdraftLimit) {
+        super(accNo, name);
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    void withdraw(double amount) {
+        if (amount > 0 && (balance - amount) >= -overdraftLimit) {
+            balance -= amount;
+            if (balance < 0) {
+                System.out.println("Overdraft used!");
+            }
+        } else {
+            System.out.println("Overdraft limit exceeded");
+        }
+    }
+
+    @Override
+    String getAccountDetails() {
+        return "Checking Account #" + getAccountNumber()
+                + ", Balance: " + balance
+                + ", Limit: " + overdraftLimit;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        SavingsAccount sa = new SavingsAccount("12345", "Rimi", 0.02);
+        sa.deposit(1000);
+        sa.applyInterest();
+        System.out.println(sa.getAccountDetails());
+
+        CheckingAccount ca = new CheckingAccount("67890", "Rimi", 500);
+        ca.deposit(200);
+        ca.withdraw(250);
+        System.out.println(ca.getAccountDetails());
+    }
+}
+*/
+
+
+//Task 3
+
+import java.util.ArrayList;
+
+
+class BankAccount {
+    protected double balance;
+
+    void deposit(double amt) {
+        balance += amt;
+    }
+
+    void withdraw(double amt) {
+        if (amt <= balance)
+            balance -= amt;
+    }
+
+    String getAccountDetails() {
+        return "Balance: $" + balance;
+    }
+}
+
+
+class SavingsAccount extends BankAccount {
+    double rate;
+
+    SavingsAccount(double rate) {
+        this.rate = rate;
+    }
+
+    void applyInterest() {
+        balance += balance * rate;
+    }
+
+    @Override
+    String getAccountDetails() {
+        return "Savings Account | Balance: $" + balance;
+    }
+}
+
+
+class CheckingAccount extends BankAccount {
+    double limit;
+
+    CheckingAccount(double limit) {
+        this.limit = limit;
+    }
+
+    @Override
+    void withdraw(double amt) {
+        if (balance - amt >= -limit)
+            balance -= amt;
+    }
+
+    @Override
+    String getAccountDetails() {
+        return "Checking Account | Balance: $" + balance;
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<BankAccount> list = new ArrayList<>();
+
+        SavingsAccount sa = new SavingsAccount(0.02);
+        CheckingAccount ca = new CheckingAccount(500);
+
+        list.add(sa);
+        list.add(ca);
+
+        
+        for (BankAccount b : list)
+            System.out.println(b.getAccountDetails());
+
+        sa.deposit(200);
+        ca.withdraw(100);
+
+        if (sa instanceof SavingsAccount)
+            sa.applyInterest();
+
+        
+        for (BankAccount b : list)
+            System.out.println(b.getAccountDetails());
+    }
+}
