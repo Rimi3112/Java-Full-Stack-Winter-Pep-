@@ -1,0 +1,423 @@
+//Task 1
+/*
+import java.util.*;
+import java.util.stream.*;
+class Employee {
+    int id ;
+    String name ; 
+    int salary  ;
+    String dept ;
+    List<String> skills ; 
+    Employee(int id ,  String name , String dept , int salary , List<String> skills){
+        this.id = id ; 
+        this.name = name ;
+        this.salary = salary ; 
+        this.dept = dept  ;
+        this.skills = skills  ;
+    }
+    @Override
+    public String toString() {
+        return name + " (" + dept + ", " + salary + ")";
+    }
+}
+class Main {
+    public static void main(String[] args) {
+         List<Employee> employees = List.of(
+            new Employee(1, "Aman", "IT", 70000, List.of("Java", "Spring")),
+            new Employee(2, "Ravi", "HR", 40000, List.of("Recruitment")),
+            new Employee(3, "Neha", "IT", 90000, List.of("Java", "Docker")),
+            new Employee(4, "Pooja", "Finance", 60000, List.of("Excel", "Accounts")),
+            new Employee(5, "Aman", "IT", 70000, List.of("Java", "Spring"))
+        );
+        // filter 
+        Map<String, List<Employee>> map = employees.stream().collect(Collectors.groupingBy(e -> e.dept)) ; 
+        System.out.println(map) ;
+        System.out.println(employees) ;
+        List<Employee> ob2 = employees.stream().filter(e -> e.salary > 60000).distinct().limit(3).toList() ;
+        System.out.println(ob2);
+    }
+}
+*/
+
+//Task 2
+
+/*
+import java.util.*;
+import java.util.stream.*;
+class Employee{
+    int id;
+    String name;
+    int salary;
+    String dept;
+    List<String>skills;
+    
+    Employee(int id, String name, String dept, int salary, List<String>skills){
+        this.id=id;
+        this.name=name;
+        this.salary=salary;
+        this.dept=dept;
+        this.skills=skills;
+    }
+    @Override
+    public String toString(){
+        return name+"("+dept+","+salary+")";
+    }
+    public static void main(String[] args)
+    {
+        List<Employee>employees=List.of(new Employee(1,"Aman","IT",70000, List.of("Java","Spring")),new Employee(2,"Ravi","HR",40000, List.of("Recruitment")), new Employee(3,"Neha","IT",90000, List.of("Java","Docker")), new Employee(4,"Pooja","Finance",60000, List.of("Excel","Accounts")),new Employee(5,"Aman","IT",70000, List.of("Java","Spring")));
+
+        
+        // map 
+        
+        List<String> name = employees.stream().map(e -> e.name).toList() ;
+        
+         System.out.println(name) ;
+         
+    }
+}
+ */
+
+
+//Task 3
+
+/*
+import java.util.*;
+
+class Task3 {
+    static class Employee {
+        String name;
+        Employee(String name){ this.name = name; }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("Aman"),
+            new Employee("Ravi"),
+            new Employee("Aman")
+        );
+
+        List<String> uniqueNames =
+                employees.stream()
+                        .map(e -> e.name)
+                        .distinct()
+                        .toList();
+
+        System.out.println(uniqueNames);
+    }
+}
+*/
+
+//Task 4
+
+/*
+import java.util.*;
+
+class Task4 {
+    static class Employee {
+        String name; int salary;
+        Employee(String name,int salary){ this.name=name; this.salary=salary; }
+        public String toString(){ return name + " " + salary; }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("Aman",70000),
+            new Employee("Neha",90000),
+            new Employee("Ravi",40000)
+        );
+
+        List<Employee> sorted =
+                employees.stream()
+                        .sorted((a,b) -> b.salary - a.salary)
+                        .toList();
+
+        System.out.println(sorted);
+    }
+}
+*/
+
+//Task 5
+/*
+import java.util.*;
+class Task5 {
+    static class Employee {
+        String name; int salary;
+        Employee(String name,int salary){ this.name=name; this.salary=salary; }
+        public String toString(){ return name + " " + salary; }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("Aman",70000),
+            new Employee("Neha",90000),
+            new Employee("Pooja",60000),
+            new Employee("Ravi",40000)
+        );
+
+        List<Employee> result =
+                employees.stream()
+                        .sorted((a,b) -> b.salary - a.salary)
+                        .skip(1)
+                        .limit(2)
+                        .toList();
+
+        System.out.println(result);
+    }
+}
+*/
+
+//Task 6
+/*
+import java.util.*;
+import java.util.stream.*;
+
+class Task6 {
+    static class Employee {
+        List<String> skills;
+        Employee(List<String> skills){ this.skills = skills; }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee(List.of("Java","Spring")),
+            new Employee(List.of("Java","Docker"))
+        );
+
+        Set<String> skills =
+                employees.stream()
+                        .flatMap(e -> e.skills.stream())
+                        .collect(Collectors.toSet());
+
+        System.out.println(skills);
+    }
+}
+*/
+
+//Task 7
+
+/*
+import java.util.*;
+
+class Task7 {
+    public static void main(String[] args) {
+        List<Integer> salaries = List.of(70000,40000,90000);
+
+        int total =
+                salaries.stream()
+                        .reduce(0, Integer::sum);
+
+        System.out.println(total);
+    }
+}
+*/
+
+//Task 8
+
+/*
+import java.util.*;
+
+class Task8 {
+    public static void main(String[] args) {
+        List<Integer> salaries = List.of(70000,40000,90000);
+
+        double average =
+                salaries.stream().reduce(0,Integer::sum)
+                / (double) salaries.stream().count();
+
+        System.out.println(average);
+    }
+}
+*/
+
+//Task9
+
+/*
+import java.util.*;
+import java.util.stream.*;
+
+class Task9 {
+
+    static class Employee {
+        int id;
+        String name;
+        String dept;
+        int salary;
+
+        Employee(int id, String name, String dept, int salary) {
+            this.id = id;
+            this.name = name;
+            this.dept = dept;
+            this.salary = salary;
+        }
+
+        @Override
+        public String toString() {
+            return name + " | " + dept + " | " + salary;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        List<Employee> employees = List.of(
+            new Employee(1, "Aman", "IT", 70000),
+            new Employee(2, "Ravi", "HR", 40000),
+            new Employee(3, "Neha", "IT", 90000)
+        );
+
+        // Task 9: Group employees by department
+        Map<String, List<Employee>> employeesByDept =
+                employees.stream()
+                        .collect(Collectors.groupingBy(e -> e.dept));
+
+        System.out.println(employeesByDept);
+    }
+}
+
+
+*/
+
+//Task 10
+
+/*
+import java.util.*;
+import java.util.stream.*;
+
+class Task10 {
+
+    static class Employee {
+        int id;
+        String name;
+        String dept;
+        int salary;
+        List<String> skills;
+
+        Employee(int id, String name, String dept, int salary, List<String> skills) {
+            this.id = id;
+            this.name = name;
+            this.dept = dept;
+            this.salary = salary;
+            this.skills = skills;
+        }
+
+        @Override
+        public String toString() {
+            return name + " | " + dept + " | " + salary;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        List<Employee> employees = List.of(
+            new Employee(1, "Aman", "IT", 70000, List.of("Java", "Spring")),
+            new Employee(2, "Ravi", "HR", 40000, List.of("Recruitment")),
+            new Employee(3, "Neha", "IT", 90000, List.of("Java", "Docker")),
+            new Employee(4, "Pooja", "Finance", 60000, List.of("Excel", "Accounts")),
+            new Employee(5, "Aman", "IT", 70000, List.of("Java", "Spring"))
+        );
+
+        // Task 10: Highest paid employee in each department
+        Map<String, Employee> highestPaidByDept =
+                employees.stream()
+                        .collect(Collectors.groupingBy(
+                                e -> e.dept,
+                                Collectors.collectingAndThen(
+                                        Collectors.maxBy(
+                                                Comparator.comparingInt(e -> e.salary)
+                                        ),
+                                        Optional::get
+                                )
+                        ));
+
+        System.out.println(highestPaidByDept);
+    }
+}
+
+*/
+
+//Task 11
+
+/*
+import java.util.*;
+
+class Task11 {
+    static class Employee {
+        String dept; int salary; List<String> skills;
+        Employee(String dept,int salary,List<String> skills){
+            this.dept=dept; this.salary=salary; this.skills=skills;
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("IT",70000,List.of("Java","Spring")),
+            new Employee("IT",90000,List.of("Docker","Java")),
+            new Employee("HR",40000,List.of("Recruitment"))
+        );
+
+        List<String> skills =
+                employees.stream()
+                        .filter(e -> e.dept.equals("IT"))
+                        .filter(e -> e.salary > 60000)
+                        .flatMap(e -> e.skills.stream())
+                        .distinct()
+                        .sorted()
+                        .limit(3)
+                        .toList();
+
+        System.out.println(skills);
+    }
+}
+*/
+
+//Task 12
+
+/*
+import java.util.*;
+import java.util.stream.*;
+
+class Task12 {
+    static class Employee {
+        String dept; int salary;
+        Employee(String dept,int salary){ this.dept=dept; this.salary=salary; }
+    }
+
+    public static void main(String[] args) {
+        List<Employee> employees = List.of(
+            new Employee("IT",70000),
+            new Employee("IT",90000),
+            new Employee("HR",40000)
+        );
+
+        Map<String,Map<String,Double>> report =
+                employees.stream()
+                        .collect(Collectors.groupingBy(
+                            e -> e.dept,
+                            Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> {
+                                    double total = list.stream()
+                                            .map(e -> e.salary)
+                                            .reduce(0,Integer::sum);
+                                    double count = list.size();
+                                    double avg = total / count;
+
+                                    Map<String,Double> map = new HashMap<>();
+                                    map.put("total", total);
+                                    map.put("average", avg);
+                                    map.put("count", count);
+                                    return map;
+                                }
+                            )
+                        ));
+
+        System.out.println(report);
+    }
+}
+
+*/
+
+
+
+
+
+
